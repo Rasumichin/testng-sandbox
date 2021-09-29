@@ -55,10 +55,17 @@ public class DynamicJsonTestDataProvider {
 		return map;
 	}
 
-	private static Object[] collectToArray(String aFirstElement, String aSecondElement) {
-		List<String> list = new ArrayList<String>();
-		list.add(aFirstElement);
-		list.add(aSecondElement);
+	/**
+	 * Takes a variable number of arguments and collects them in an array of Objects.
+	 * 
+	 * @return A collection of [0..n] arbitrary objects, depending on the number of arguments passed to the method.
+	 * 
+	 */
+	private static Object[] collectToArray(Object... args) {
+		List<Object> list = new ArrayList<Object>();
+		for (Object eachArgument : args) {
+			list.add(eachArgument);
+		}
 
 		return list.toArray();
 	}
