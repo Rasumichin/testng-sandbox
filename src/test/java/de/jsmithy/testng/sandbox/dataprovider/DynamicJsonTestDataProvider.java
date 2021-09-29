@@ -13,8 +13,35 @@ import org.testng.annotations.DataProvider;
 
 import com.google.gson.Gson;
 
+/**
+ * A DataProvider class conforming to TestNG that reads the test values from a given JSON file.
+ * 
+ * Refer to: https://testng.org/doc/documentation-main.html#parameters-dataproviders
+ * 
+ * @author Erik Lotz
+ * 
+ */
 public class DynamicJsonTestDataProvider {
 
+	/**
+	 * Answers an Iterator that provides access to a list of test values which have been read
+	 * from a given file, named <code>"./testdata/chaining-testdata.json"</code>.
+	 * 
+	 * Refer to a snippet of this test file:</br>
+	 * <code>
+	 * { "concatTestValues": [
+	 * 	 { "firstElement":"FCO", "secondElement":"ISI" },
+	 *   { "firstElement":"Kent", "secondElement":"Beck"}
+	 *   ]
+	 * }</code></p>
+	 * 
+	 * This snippet would lead to an Iterator to a list of <code>Object[]</code> with the elements
+	 * <ol>
+	 * <li><code>["FCO", "ISI"]</code>
+	 * <li><code>["Kent", "Beck"]</code>
+	 * </ol>
+	 * 
+	 */
 	@DataProvider(name = "chaining-json-test-values")
 	public static Iterator<Object[]> provideChainingTestValues() throws IOException {
 		Map<?, ?> jsonDataMap = readTestValuesFrom("./testdata/chaining-testdata.json");
