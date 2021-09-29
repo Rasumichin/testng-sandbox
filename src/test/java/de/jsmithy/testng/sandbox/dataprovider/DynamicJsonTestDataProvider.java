@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 public class DynamicJsonTestDataProvider {
 
 	@DataProvider(name = "chaining-json-test-values")
-	public static Iterator<Object[]> provideChainingTestValues() {
+	public static Iterator<Object[]> provideChainingTestValues() throws IOException {
 		Map<?, ?> jsonDataMap = readTestValuesFrom("./testdata/chaining-testdata.json");
 
 		@SuppressWarnings("unchecked")
@@ -45,20 +45,19 @@ public class DynamicJsonTestDataProvider {
 	 * @return A map containing all the properties of the JSON object with the corresponding values. All types
 	 * 			are completely dynamic, no binding.
 	 * 
+	 * @throws IOException In case handling the file operation would fail.
+	 * 
 	 */
-	private static Map<?, ?> readTestValuesFrom(String aFileName) {
+	private static Map<?, ?> readTestValuesFrom(String aFileName) throws IOException {
 		ClassLoader classloader = DynamicJsonTestDataProvider.class.getClassLoader();
 		InputStream inputStream = classloader.getResourceAsStream(aFileName);
 		Reader reader = new InputStreamReader(inputStream);
 
 		Gson gson = new Gson();
 		Map<?, ?> map = gson.fromJson(reader, Map.class);
-		try {
-			inputStream.close();
-			reader.close();
-		} catch (IOException ioEx) {
-			ioEx.printStackTrace();
-		}
+
+		inputStream.close();
+		reader.close();
 
 		return map;
 	}
