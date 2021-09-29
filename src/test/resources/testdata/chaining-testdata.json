@@ -1,0 +1,12 @@
+{
+   "concatTestValues": [
+      {
+         "firstElement":"FCO",
+         "secondElement":"ISI"
+      },
+      {
+         "firstElement":"Kent",
+         "secondElement":"Beck"
+      }
+   ]
+}

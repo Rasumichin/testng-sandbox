@@ -4,6 +4,7 @@ import static org.testng.Assert.*;
 
 import org.testng.annotations.Test;
 
+import de.jsmithy.testng.sandbox.dataprovider.DynamicJsonTestDataProvider;
 import de.jsmithy.testng.sandbox.dataprovider.StaticTestDataProvider;
 
 public class ChainingTest {
@@ -21,6 +22,16 @@ public class ChainingTest {
 
 	@Test(dataProvider = "chaining-test-values", dataProviderClass = StaticTestDataProvider.class)
 	public void testChain_with_static_data_provider(String aFirstElement, String aSecondElement) {
+		sut = new Chaining();
+		String expected = "Hello, " + aFirstElement + " and " + aSecondElement;
+
+		String actual = sut.concat(aFirstElement, aSecondElement);
+
+		assertEquals(actual, expected, "Concatenated values are not correct!");
+	}
+
+	@Test(dataProvider = "chaining-json-test-values", dataProviderClass = DynamicJsonTestDataProvider.class)
+	public void testChain_with_dynamic_data_provider(String aFirstElement, String aSecondElement) {
 		sut = new Chaining();
 		String expected = "Hello, " + aFirstElement + " and " + aSecondElement;
 
