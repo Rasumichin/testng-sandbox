@@ -35,15 +35,23 @@ public class DynamicJsonTestDataProvider {
 	}
 
 	/**
+	 * Reads a JSON structure from a file into a map of dynamic properties and values.
+	 *  
 	 * Adaption of https://attacomsian.com/blog/gson-read-json-file
+	 * 
+	 * @param aFileName The name of file to be read. The file has to be visible on the classpath, because
+	 * 					it is loaded as a resource.
+	 * 
+	 * @return A map containing all the properties of the JSON object with the corresponding values. All types
+	 * 			are completely dynamic, no binding.
 	 * 
 	 */
 	private static Map<?, ?> readTestValuesFrom(String aFileName) {
-		Gson gson = new Gson();
 		ClassLoader classloader = DynamicJsonTestDataProvider.class.getClassLoader();
 		InputStream inputStream = classloader.getResourceAsStream(aFileName);
-
 		Reader reader = new InputStreamReader(inputStream);
+
+		Gson gson = new Gson();
 		Map<?, ?> map = gson.fromJson(reader, Map.class);
 		try {
 			inputStream.close();
